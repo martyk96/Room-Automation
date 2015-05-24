@@ -2,7 +2,7 @@
 
 <html>
   <head>
-    <title>Marty's Room</title> 
+    <title>Marty's Room</title>
     <link rel="stylesheet" type="text/css" href="format.css"/>
   </head>
   <body>
@@ -40,13 +40,19 @@
         <button onclick="sendCommand('key_power')" >TV Pwr</button>
         <button onclick="location.href = 'remote.html'">Remote Control</button>
       </td>
+      </tr>
+      <tr class="content">
+      <td>AC</td>
+      <td>
+        <button onclick="location.href = 'acRemote.html'">Air Conditioning</button>
+      </td>
     </table>
 
    <!-- <control>
       <input type="button" value="On" onclick="go('w')" style="font-size:200%;"><br />
       <input type="button" value="Off" onclick="go('s')" style="font-size:200%;">
     </control>
-   -->     
+   -->
     <script type="text/javascript">
       window.sendCommand = function(command) {
         var status_box = document.getElementById('status')

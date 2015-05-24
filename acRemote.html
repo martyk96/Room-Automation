@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Air Conditioning</title>
+    <link rel="stylesheet" type="text/css" href="format.css"/>
+  </head>
+  <body>
+    <button onclick="sendCommand('power')">Power</button>
+    <button onclick="sendCommand('up')">Up</button>
+    <button onclick="sendCommand('down')">Down</button>
+    <button onclick="sendCommand('mode')">Mode</button>
+    <button onclick="sendCommand('time')">Timer</button>
+
+    <script type="text/javascript">
+    window.sendCommand = function(command) {
+      var status_box = document.getElementById('status')
+      request = new XMLHttpRequest()
+      request.open('GET', '/doStuff.py?acCommand=' + command)
+      request.addEventListener('load', function(){
+        if(request.status == 200){
+          status_box.textContent = "All Good!"
+        } else {
+          status_box.textContent = "Error on the server!"
+        }
+      })
+      request.addEventListener('error', function(){
+        status_box.textContent = "Nope! Problem."
+
+      })
+      request.send()
+    }
+    </script>
+  </body>
+</html>

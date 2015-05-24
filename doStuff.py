@@ -94,9 +94,11 @@ def app(environ, start_response):
   #***************************************************************************************
 var acCall
 
-  if "ac" in parameters:
-      acCall = str(parameters["remoteCommand"][0])
+  if "acCommand" in parameters:
+      acCall = acRemoteCall + (str(parameters["remoteCommand"][0]))
       subprocess.call(acCall, shell = True)
+
+    logging.debug("AC command:", acCall)
 
 
 #by default, Flup works out how to bind to the web server for us, so just call it with our app() function and let it get on with it

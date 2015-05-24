@@ -1,0 +1,70 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Marty's Room</title> 
+    <link rel="stylesheet" type="text/css" href="format.css"/>
+  </head>
+  <body>
+    <div id="status"></div>
+    <h1>Home Automation</h1>
+    <table align="center">
+      <tr class="header">
+        <td>Appliance</td>
+        <td colspan="2">Status</td>
+      </tr>
+      <tr class="content">
+        <td>All Appliances</td>
+         <td colspan="2">
+          <button onclick="sendCommand('allOn')">On</button>
+          <button onclick="sendCommand('allOff')">Off</button>
+        </td>
+      </tr>
+      <tr class="content">
+        <td>Bed Side Light</td>
+        <td colspan="2">
+          <button onclick="sendCommand('lightOn')" >On</button>
+          <button onclick="sendCommand('lightOff')" >Off</button>
+        </td>
+      </tr>
+      <tr class="content">
+        <td>Heater</td>
+        <td>
+          <button onclick="sendCommand('heatOn')" >On</button>
+          <button onclick="sendCommand('heatOff')">Off</button>
+        </td>
+      </tr>
+      <tr class="content">
+      <td>TV</td>
+      <td>
+        <button onclick="sendCommand('key_power')" >TV Pwr</button>
+        <button onclick="location.href = 'remote.html'">Remote Control</button>
+      </td>
+    </table>
+
+   <!-- <control>
+      <input type="button" value="On" onclick="go('w')" style="font-size:200%;"><br />
+      <input type="button" value="Off" onclick="go('s')" style="font-size:200%;">
+    </control>
+   -->     
+    <script type="text/javascript">
+      window.sendCommand = function(command) {
+        var status_box = document.getElementById('status')
+        request = new XMLHttpRequest()
+        request.open('GET', '/doStuff.py?q=' + command)
+        request.addEventListener('load', function(){
+          if(request.status == 200){
+            status_box.textContent = "All Good!"
+          } else {
+            status_box.textContent = "Error on the server!"
+          }
+        })
+        request.addEventListener('error', function(){
+          status_box.textContent = "Nope! Problem."
+
+        })
+        request.send()
+      }
+    </script>
+  </body>
+</html>

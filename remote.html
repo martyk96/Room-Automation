@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <title>Remote Control</title> 
+    <link rel="stylesheet" type="text/css" href="format.css"/>
+  </head>
+  <body>
+    <img src="remote.png" usemap="#remotemap">
+  <map name="remotemap">
+    <area shape="rect" coords="270,23,356,76" href="" onclick="sendCommand('power')" alt="Tv Power">
+    <area shape="rect" coords="423,23,507,75" href="" onclick="sendCommand('power2')" alt="Cable Power">
+    <area shape="rect" coords="233,129,290,224" href="" onclick="sendCommand('volumeup')" alt="Volume Up">
+    <area shape="rect" coords="233,224,290,314" href="" onclick="sendCommand('volumedown')" alt="Volume Down">
+    <area shape="rect" coords="475,133,532,224" href="" onclick="sendCommand('channelup')" alt="Channel Up">
+    <area shape="rect" coords="475,224,532,318" href="" onclick="sendCommand('channeldown')" alt="Channel Down">
+    <area shape="rect" coords="298,200,367,243" href="" onclick="sendCommand('mute')" alt="Mute">
+    <area shape="rect" coords="400,200,469,243" href="" onclick="sendCommand('last')" alt="Last">
+    <area shape="rect" coords="230,335,317,381" href="" onclick="sendCommand('1')" alt="1">
+    <area shape="rect" coords="340,335,427,381" href="" onclick="sendCommand('2')" alt="2">
+    <area shape="rect" coords="452,335,540,381" href="" onclick="sendCommand('3')" alt="3">
+    <area shape="rect" coords="230,406,317,451" href="" onclick="sendCommand('4')" alt="4">
+    <area shape="rect" coords="340,406,427,451" href="" onclick="sendCommand('5')" alt="5">
+    <area shape="rect" coords="452,406,540,451" href="" onclick="sendCommand('6')" alt="6">
+    <area shape="rect" coords="230,478,317,523" href="" onclick="sendCommand('7')" alt="7">
+    <area shape="rect" coords="340,478,427,523" href="" onclick="sendCommand('8')" alt="8">
+    <area shape="rect" coords="452,478,540,523" href="" onclick="sendCommand('9')" alt="9">
+    <area shape="rect" coords="340,545,427,587" href="" onclick="sendCommand('0')" alt="0">
+  </map>
+    <script type="text/javascript">
+      window.sendCommand = function(command) {
+        var status_box = document.getElementById('status')
+        request = new XMLHttpRequest()
+        request.open('GET', '/doStuff.py?remoteCommand=' + command)
+        request.addEventListener('load', function(){
+          if(request.status == 200){
+            status_box.textContent = "All Good!"
+          } else {
+            status_box.textContent = "Error on the server!"
+          }
+        })
+        request.addEventListener('error', function(){
+          status_box.textContent = "Nope! Problem."
+
+        })
+        request.send()
+      }
+    </script>
+  </body>
+</html>

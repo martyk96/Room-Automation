@@ -1,0 +1,49 @@
+h1 {
+	text-align: center;
+	font-size: 45;
+	font-family: helvetica, arial, sans-serif;
+	letter-spacing: -1px;
+	margin-top: 20px;
+	color: #000048;
+}
+
+table {
+	width: 75%;
+	text-align: center;
+	background-color: #88B9F4;
+}
+
+table .header {
+	font-family: helvetica, arial, sans-serif;
+	font-weight: bold;
+	font-size: 24;
+}
+
+table .content {
+	height: 5em;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 22;
+}
+
+body {
+	background-color: #FFFFFF;
+	background: url('/background.jpeg');
+}
+
+#status {
+	border: 1px solid white;
+	padding: 20px;
+	background: white;
+}
+
+button {
+	font-size: 150%;
+}
+
+tr {
+	border: 1px;
+}
+
+td {
+	border: 1px;
+}

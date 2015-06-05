@@ -7,8 +7,9 @@ from flup.server.fcgi import WSGIServer
 import sys, urlparse
 import subprocess #added for the ir sensor
 import logging
-LOG_FILENAME = 'example.log'
+LOG_FILENAME = 'roomLog.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
+logging.debug("Running")
 
 # set up our GPIO pins
 gpio.setmode(gpio.BCM)
@@ -49,8 +50,10 @@ def app(environ, start_response):
 
     if parameters["q"][0] == "lightOn":
       gpio.output(18, False)   # Turn it on
+      logging.debug("Light On")
     elif parameters["q"][0] == "lightOff":
       gpio.output(18, True)  # Turn it off
+      logging.debug("Light Off")
 
 
     if parameters["q"][0] == "heatOn":
@@ -92,13 +95,11 @@ def app(environ, start_response):
   #            AC Remote
   #
   #***************************************************************************************
-var acCall
 
   if "acCommand" in parameters:
       acCall = acRemoteCall + (str(parameters["remoteCommand"][0]))
       subprocess.call(acCall, shell = True)
-
-    logging.debug("AC command:", acCall)
+logging.debug("AC command:", acCall)
 
 
 #by default, Flup works out how to bind to the web server for us, so just call it with our app() function and let it get on with it

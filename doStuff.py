@@ -9,7 +9,7 @@ import subprocess #added for the ir sensor
 import logging
 LOG_FILENAME = 'roomLog.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
-logging.debug("Running")
+
 
 # set up our GPIO pins
 gpio.setmode(gpio.BCM)
@@ -40,6 +40,7 @@ def app(environ, start_response):
   #                  Because of polarity of Relay
   #******************************************************************
   if "q" in parameters:
+    logging.debug("passsing lights")
     if parameters["q"][0] == "allOn":
       for x in pinList:
         gpio.output(x, False)
@@ -61,13 +62,13 @@ def app(environ, start_response):
     elif parameters["q"][0] == "heatOff":
       gpio.output(24, True)
 
-#depending on the button pressed on the remote a call will be passed through and concatenated with the rest of the command and then passsed into subprocess
+    #depending on the button pressed on the remote a call will be passed through and concatenated with the rest of the command and then passsed into subprocess
 
-#***************************************************************************************
-#ISSUE!!! NEED TO FIGURE OUT HOW TO STILL USE STRING COMMANDS LIKE "power" or "last"
-#
-#        ****FIXED with try/except
-#***************************************************************************************
+    #***************************************************************************************
+    #ISSUE!!! NEED TO FIGURE OUT HOW TO STILL USE STRING COMMANDS LIKE "power" or "last"
+    #
+    #        ****FIXED with try/except
+    #***************************************************************************************
   if "remoteCommand" in parameters:
     try:
       remoteCommandInt = int(parameters["remoteCommand"][0])
@@ -88,7 +89,7 @@ def app(environ, start_response):
       newCall =  remoteControlCall + parameters["remoteCommand"][0]
       subprocess.call(newCall, shell = True)
 
-  logging.debug("the number: %s", remoteCommandInt)
+      logging.debug("the number: %s", remoteCommandInt)
 
   #***************************************************************************************
   #
@@ -97,9 +98,9 @@ def app(environ, start_response):
   #***************************************************************************************
 
   if "acCommand" in parameters:
-      acCall = acRemoteCall + (str(parameters["remoteCommand"][0]))
+      acCall = acRemoteCall + parameters["acCommand"][0]
       subprocess.call(acCall, shell = True)
-logging.debug("AC command:", acCall)
+      logging.debug("AC command: %s", acCall)
 
 
 #by default, Flup works out how to bind to the web server for us, so just call it with our app() function and let it get on with it
